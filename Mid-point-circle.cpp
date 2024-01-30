@@ -1,0 +1,48 @@
+#include<GL/glut.h>
+void circle() {
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.0, 0.0, 0.0);
+	//glPointSize(2.0); 
+	float r = 100;
+	float x = 0, y = r;
+	float d = 1 - r; // Decision para
+	while (x <= y)
+	{
+		x++;
+		if (d < 0) {
+			d += 2 * (x) + 3;
+		}
+		else {
+			y--;
+			d += 2 * (x - y) + 5;
+		}
+		glBegin(GL_POINTS);
+		// glVertex2i(x + pntX1,y + pnty1);
+		glVertex2i(x, y);
+		glVertex2i(-x, y);
+		glVertex2i(x, -y);
+		glVertex2i(-x, -y);
+		glVertex2i(y, x);
+		glVertex2i(-y, x);
+		glVertex2i(y, -x);
+		glVertex2i(-y, -x);
+		glEnd();
+	}
+	glFlush();
+}
+void myinit() {
+	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glMatrixMode(GL_PROJECTION);
+	gluOrtho2D(-250, 250, -250, 250);
+}
+int main(int argc, char ** argv) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize(500, 500);
+	glutInitWindowPosition(0, 0);
+	glutCreateWindow("Mid Point Circle");
+	glutDisplayFunc(circle);
+	myinit();
+	glutMainLoop();
+	return 0;
+}
